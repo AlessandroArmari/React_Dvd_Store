@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import { Card } from "./Card/Card";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./index.css";
 
 var list = [
   { dvd_name: "Con_Air", dvd_price: 9.9 },
