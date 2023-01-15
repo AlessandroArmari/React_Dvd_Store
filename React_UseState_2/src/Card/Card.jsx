@@ -7,13 +7,13 @@ const Card = ({ dvd_name, dvd_price, index, addButton, removeButton }) => {
       <p className="  p-1 ">Movie: {dvd_name}</p>
       <p className=" p-1 m-1">Price: {dvd_price}</p>
       <button
-        className="d-inline-flex align-self-start m-2 border rounded"
+        className="d-inline-flex align-self-start bg-danger m-2 border border-danger rounded"
         onClick={addButton}
       >
         +
       </button>
       <button
-        className="d-inline-flex align-self-start m-2 border rounded"
+        className="d-inline-flex align-self-start bg-danger m-2 border border-danger rounded"
         onClick={removeButton}
       >
         -
