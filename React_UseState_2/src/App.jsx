@@ -12,75 +12,65 @@ var list = [
 function App() {
   //Declaring the "hook"
   //Remember to import { useState }
-  const [addToBasket, setAddToBasket] = useState(); //--->default value is "0"
-  const [showBasket, setShowBasket] = useState(false); //--->to set the basket visibility
+  const [basketValue, setBasketValue] = useState(0); //--->default value is "0"
+
+  //Whene we click---> No-Name function starts--->it sets {basketValue} --->
+  //---> as what it finds within the (basketValue + 1)
+
+  const functionToRemoveInsteadOfAnonymousFunction = () => {
+    setBasketValue(basketValue - 1);
+    console.log("You've removed an item from the basket!");
+  };
+
   return (
     <div>
-      {/* here I'm saying:
-      because of the  {} --->  this input is a js item
-      && is similar to an if sentence:
-      "if showBasket AND input_item (which is ALWAYS true here) ARE BOTH TRUE"--->
-      --->&& returns the last item of the list
-      --->so it will return input item 
-      So, ONLY IF showBasket is true, the input will be shown!*/}
-      {showBasket && <input placeholder="Basket" value={addToBasket} />}
-      <div>
-        {list.map((elem, index) => {
-          //CREATE FUNCTION IN ORDER TO ASSIGN IT LATER TO THE onClik events
+      <div className="d-flex justify-content-around align-items-center bg-primary ">
+        <h2>DVD_Store "Armandus-3000"</h2>
+        <div className="text-center strong border border-3 border-danger m-2 ">
+          <div className="p-2 ">
+            <strong> Basket:</strong>
+          </div>
+          <div className="border-top border-danger p-1">
+            <strong>{basketValue}</strong>
+          </div>
+        </div>
+      </div>
 
-          var removeButtonFunction = (addToBasket) => {
-            //FIRST part:
-
-            setAddToBasket(addToBasket.target.value--);
-            //SECOND part:
-
-            console.log(
-              "You've removed: " + elem.dvd_name + " from the basket"
-            );
-            //THIRD part:
-
-            setShowBasket(true);
-          };
-          //This functions must be located HERE: Where they can find the variables they need to work
-          //Not inside the return down here, not outside (they won't find the variables")
-
-          return (
+      {list.map((elem, index) => {
+        return (
+          <>
             <Card
               key={index}
               dvd_name={elem.dvd_name}
               dvd_price={elem.dvd_price}
-              addButton={(addToBasket) => {
-                //+++FOR THE addButton I'm typing the function here+++
-                //+++GO DOWN TO removeButton for see something else!
-                //FIRST part:
+              addButton={() => {
+                setBasketValue(basketValue + 1);
+                console.log("You've added an item to the basket");
+              }}
+              removeButton={functionToRemoveInsteadOfAnonymousFunction}
 
-                var increasingValue = addToBasket.target.value++;
-                setAddToBasket(increasingValue);
-                //SECOND part:
-
-                console.log(
-                  "You've added: " +
-                    elem.dvd_name +
-                    " (item_number: " +
-                    index +
-                    "), price: " +
-                    elem.dvd_price +
-                    ", to the basket"
-                );
-                //THIRD part (change basket visibility whit showBasket)
-
-                setShowBasket(true); //--->changing the default value (false) of ShowBasket to "true"
-              }} //--->once we cliccked once, it will be "true, NOW GO TO INPUT, above"
-              removeButton={removeButtonFunction}
-              // Here I do not type the function directly!
-              // Assigning to the <Card/> props."removeButton"
-              // the functions I declared above.
+              //2 way for doing the same thing:
+              //---> addButton--->I wrote the function there as props.
+              //---> removeButton--->I invoke the function i previously typed
             />
-          );
-        })}
-      </div>
+          </>
+        );
+      })}
+
+      {/* <Card
+        dvd_name={list[0].dvd_name}
+        dvd_price={list[0].dvd_price}
+        addButton={() => {
+          setBasketValue(basketValue + 1);
+          console.log("You've added an item to the basket");
+        }}
+        removeButton={functionToRemoveInsteadOfAnonymousFunction}
+
+        //2 way for doing the same thing:
+        //---> addButton--->I wrote the function there as props.
+        //---> removeButton--->I invoke the function i previously typed
+      /> */}
     </div>
   );
 }
-
 export default App;
